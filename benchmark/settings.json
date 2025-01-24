@@ -1,0 +1,27 @@
+{
+    "testbed": "hotstuff",
+    "key": {
+        "name": "KEY-NAME",
+        "path": "/home/USER/.ssh/aws"
+    },
+    "ports": {
+        "consensus": 10000,
+        "mempool": 7000,
+        "front": 6000
+    },
+    "repo": {
+        "name": "fault-free-recovery",
+        "url": "https://github.com/gFrancoCamilo/fault-free-recovery",
+        "branch": "main"
+    },
+    "instances": {
+        "type": "m5d.xlarge",
+        "regions": [
+            "us-east-1",
+            "eu-north-1",
+            "us-west-1",
+	    "ap-southeast-2",
+            "ap-northeast-1"
+        ]
+    }
+}

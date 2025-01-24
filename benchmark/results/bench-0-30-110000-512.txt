@@ -1,0 +1,84 @@
+
+-----------------------------------------
+ SUMMARY:
+-----------------------------------------
+ + CONFIG:
+ Faults: 0 nodes
+ Committee size: 30 nodes
+ Input rate: 110,010 tx/s
+ Transaction size: 512 B
+ Execution time: 200 s
+
+ Consensus timeout delay: 5,000 ms
+ Consensus sync retry delay: 5,000 ms
+ Mempool GC depth: 50 rounds
+ Mempool sync retry delay: 5,000 ms
+ Mempool sync retry nodes: 3 nodes
+ Mempool batch size: 500,000 B
+ Mempool max batch delay: 100 ms
+
+ + RESULTS:
+ Consensus TPS: 109,059 tx/s
+ Consensus BPS: 55,838,382 B/s
+ Consensus latency: 1,240 ms
+
+ End-to-end TPS: 108,975 tx/s
+ End-to-end BPS: 55,795,137 B/s
+ End-to-end latency: 1,789 ms
+-----------------------------------------
+
+-----------------------------------------
+ SUMMARY:
+-----------------------------------------
+ + CONFIG:
+ Faults: 0 nodes
+ Committee size: 30 nodes
+ Input rate: 110,010 tx/s
+ Transaction size: 512 B
+ Execution time: 157 s
+
+ Consensus timeout delay: 5,000 ms
+ Consensus sync retry delay: 5,000 ms
+ Mempool GC depth: 50 rounds
+ Mempool sync retry delay: 5,000 ms
+ Mempool sync retry nodes: 3 nodes
+ Mempool batch size: 500,000 B
+ Mempool max batch delay: 100 ms
+
+ + RESULTS:
+ Consensus TPS: 101,874 tx/s
+ Consensus BPS: 52,159,384 B/s
+ Consensus latency: 2,091 ms
+
+ End-to-end TPS: 101,743 tx/s
+ End-to-end BPS: 52,092,517 B/s
+ End-to-end latency: 2,809 ms
+-----------------------------------------
+
+-----------------------------------------
+ SUMMARY:
+-----------------------------------------
+ + CONFIG:
+ Faults: 0 nodes
+ Committee size: 30 nodes
+ Input rate: 110,010 tx/s
+ Transaction size: 512 B
+ Execution time: 143 s
+
+ Consensus timeout delay: 5,000 ms
+ Consensus sync retry delay: 5,000 ms
+ Mempool GC depth: 50 rounds
+ Mempool sync retry delay: 5,000 ms
+ Mempool sync retry nodes: 3 nodes
+ Mempool batch size: 500,000 B
+ Mempool max batch delay: 100 ms
+
+ + RESULTS:
+ Consensus TPS: 97,015 tx/s
+ Consensus BPS: 49,671,464 B/s
+ Consensus latency: 2,182 ms
+
+ End-to-end TPS: 96,969 tx/s
+ End-to-end BPS: 49,648,262 B/s
+ End-to-end latency: 3,115 ms
+-----------------------------------------

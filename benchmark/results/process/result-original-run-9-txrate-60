@@ -1,0 +1,36 @@
+[92mStarting local benchmark[0m
+Setting up testbed...
+Waiting for the nodes to synchronize...
+Running benchmark (60 sec)...
+Parsing logs...
+[1m[93mWARN[0m: Clients missed their target rate 57 time(s)
+[1m[93mWARN[0m: Nodes timed out 38 time(s)
+
+-----------------------------------------
+ SUMMARY:
+-----------------------------------------
+ + CONFIG:
+ Faults: 0 nodes
+ Committee size: 7 nodes
+ Input rate: 60,004 tx/s
+ Transaction size: 512 B
+ Execution time: 59 s
+
+ Consensus timeout delay: 1,000 ms
+ Consensus sync retry delay: 10,000 ms
+ Mempool GC depth: 50 rounds
+ Mempool sync retry delay: 5,000 ms
+ Mempool sync retry nodes: 3 nodes
+ Mempool batch size: 15,000 B
+ Mempool max batch delay: 10 ms
+
+ + RESULTS:
+ Consensus TPS: 50,255 tx/s
+ Consensus BPS: 25,730,376 B/s
+ Consensus latency: 269 ms
+
+ End-to-end TPS: 50,249 tx/s
+ End-to-end BPS: 25,727,306 B/s
+ End-to-end latency: 832 ms
+-----------------------------------------
+
