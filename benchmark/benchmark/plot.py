@@ -75,7 +75,7 @@ class Ploter:
             #)
 
         plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1), ncol=2)
-        plt.xlim(xmin=90000)
+        #plt.xlim(xmin=90000)
         plt.ylim(bottom=0)
         plt.xlabel(x_label)
         plt.ylabel(y_label[0])

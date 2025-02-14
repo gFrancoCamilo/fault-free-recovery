@@ -18,6 +18,8 @@ highest_rate=$2
 num_nodes=$3
 num_runs=$4
 
+python get-results.py $num_nodes
+
 python run-test.py $smallest_rate $highest_rate $num_nodes $num_runs 
 
 sed -i "s/Faults: 0 nodes/Faults: 1 nodes/g" results/bench-1-*
