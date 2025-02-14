@@ -37,8 +37,8 @@ To begin, you need to generate the required configuration files. The `setup-env.
 1. Clone the repository (if you haven't already):
 
     ```bash
-    git clone https://github.com/gFrancoCamilo/one-shadow-recovery.git
-    cd one-shadow-recovery/benchmark
+    git clone https://github.com/gFrancoCamilo/fault-free-recovery.git
+    cd fault-free-recovery/benchmark
     ```
 
 2. Install the required libraries:
