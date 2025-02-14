@@ -1,66 +1,112 @@
-> **Note to readers:** This codebase is useful to get started with BFT consensus and as baseline when designing your own protocols. If you are looking for state-of-the-art BFT protocols, I recommend [Tusk](https://github.com/asonnino/narwhal) (asynchronous) and [Bullshark](https://github.com/asonnino/narwhal/tree/bullshark) (partially-synchronous) that provide superior performance, robustness, and scalability.
+# Recovering from Excessive Faults in Hotstuff
 
-# HotStuff
 
-[![build status](https://img.shields.io/github/workflow/status/asonnino/hotstuff/Rust/main?style=flat-square&logo=github)](https://github.com/asonnino/hotstuff/actions)
-[![rustc](https://img.shields.io/badge/rustc-1.64+-blue?style=flat-square&logo=rust)](https://www.rust-lang.org)
-[![license](https://img.shields.io/badge/license-Apache-blue.svg?style=flat-square)](LICENSE)
+This repository contains the implementation and evaluation for the paper titled ["Recover from Excessive Faults in Partially-Synchronous BFT SMR"](https://eprint.iacr.org/2025/083). The goal is to extend HotStuff's fault tolerance in cases of excessive faults. We base our code on the [2-chain Hotstuff implementation](https://github.com/asonnino/hotstuff). 
 
-This repo provides a minimal implementation of the [2-chain variant of the HotStuff consensus protocol](https://arxiv.org/abs/2106.10362) used at the core of [Diem](https://www.diem.com/en-us/). The codebase has been designed to be small, efficient, and easy to benchmark and modify. It has not been designed to run in production but uses real cryptography ([dalek](https://doc.dalek.rs/ed25519_dalek)), networking ([tokio](https://docs.rs/tokio)), and storage ([rocksdb](https://docs.rs/rocksdb)).
+In particular, this repository implements our recovery protocol under a free-faults setting. The following instructions will guide you through setting up the environment, configuring the system, and running the protocol.
 
-## Quick Start
+## Prerequisites
 
-HotStuff is written in Rust, but all benchmarking scripts are written in Python and run with [Fabric](http://www.fabfile.org/).
-To deploy and benchmark a testbed of 4 nodes on your local machine, clone the repo and install the python dependencies:
+Before you start, make sure you have the following installed:
 
-```bash
-git clone https://github.com/asonnino/hotstuff.git
-cd hotstuff/benchmark
-pip install -r requirements.txt
-```
+- Python 3.6+
+- Rust and Cargo
+- Clang
+- Tmux
 
-You also need to install Clang (required by rocksdb) and [tmux](https://linuxize.com/post/getting-started-with-tmux/#installing-tmux) (which runs all nodes and clients in the background). Finally, run a local benchmark using fabric:
+In Ubuntu 22.04, you can install the prerequisites by running:
 
 ```bash
-fab local
+sudo apt update
+sudo apt-get install -y python3 tmux clang
+curl https://sh.rustup.rs -sSf | sh
 ```
 
-This command may take a long time the first time you run it (compiling rust code in `release` mode may be slow) and you can customize a number of benchmark parameters in `fabfile.py`. When the benchmark terminates, it displays a summary of the execution similarly to the one below.
+Make sure that `cargo` is in your `$PATH` after installation:
 
-```text
------------------------------------------
- SUMMARY:
------------------------------------------
- + CONFIG:
- Faults: 0 nodes
- Committee size: 4 nodes
- Input rate: 1,000 tx/s
- Transaction size: 512 B
- Execution time: 20 s
-
- Consensus timeout delay: 1,000 ms
- Consensus sync retry delay: 10,000 ms
- Mempool GC depth: 50 rounds
- Mempool sync retry delay: 5,000 ms
- Mempool sync retry nodes: 3 nodes
- Mempool batch size: 15,000 B
- Mempool max batch delay: 10 ms
-
- + RESULTS:
- Consensus TPS: 967 tx/s
- Consensus BPS: 495,294 B/s
- Consensus latency: 2 ms
-
- End-to-end TPS: 960 tx/s
- End-to-end BPS: 491,519 B/s
- End-to-end latency: 9 ms
------------------------------------------
+```bash
+source $HOME/.cargo/env
 ```
 
-## Next Steps
+## Running the Codebase (locally)
 
-The [wiki](https://github.com/asonnino/hotstuff/wiki) documents the codebase, explains its architecture and how to read benchmarks' results, and provides a step-by-step tutorial to run [benchmarks on Amazon Web Services](https://github.com/asonnino/hotstuff/wiki/AWS-Benchmarks) across multiple data centers (WAN).
+### Step 1: Set up the environment
 
-## License
+To begin, you need to generate the required configuration files. The `setup-env.py` script will help you do this.
 
-This software is licensed as [Apache 2.0](LICENSE).
+1. Clone the repository (if you haven't already):
+
+    ```bash
+    git clone https://github.com/gFrancoCamilo/one-shadow-recovery.git
+    cd one-shadow-recovery/benchmark
+    ```
+
+2. Install the required libraries:
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+### Step 2: Configure Parameters in fabfile.py
+
+Next, you need to set the appropriate parameters for your setup in the fabfile.py. This file contains configuration settings for Fabric tasks, including network settings and other protocol-related configurations.
+
+Open fabfile.py and modify the parameters as needed.
+
+### Step 3: Run the Protocol
+Once you've configured fabfile.py, you can run the protocol locally using Fabric. To do so, execute the following command:
+
+```bash
+fab localmal
+```
+
+This will trigger the execution of the protocol with the parameters you configured in fabfile.py. At the end of the execution, you should see a summary of stats. The logs of each node and client can be found in the `logs` directory.
+
+## Reproducing Results (Locally)
+
+We provide the necessary scripts to reproduce Figure 2 of the paper locally.
+
+1. From the repository root, change the current working directory:
+    ```bash
+    cd benchmark
+    ```
+
+2. Make sure that the script has the correct permissions:
+    ```bash
+    chmod +x get-results-fig1.sh
+    ```
+3. Execute the script to get results for 7 nodes:
+    ```bash
+    ./get-results-fig1.sh 10_000 120_000 7 5
+    ```
+    This script executes our recovery protocol with 7 nodes, starting at an input rate of 10,000 transactions per second and incrementing by 10,000 transactions per second up to a maximum of 120,000 transactions per second. Each input rate is tested 5 times to ensure robust and reliable results. You can try different settings using the same script.
+    
+    Additionally, the script clones the vanilla Hotstuff codebase, runs it with the same parameters and copy the results to a results directory.
+    ```bash
+    ./get-results-fig1.sh <starting_input_rate> <ending_input_rate> <num_nodes> <num_runs>
+    ```
+4. Execute the script to get results for 30 nodes:
+    ```bash
+    ./get-results-fig1.sh 10_000 120_000 30 5
+    ```
+5. Change `fabfile.py`:
+    ```python
+    plot_params = {
+        "faults": [0, 1],
+        "nodes": [7, 30],
+        "tx_size": 512,
+        "max_latency": [5_000],
+    }
+    ```
+6. Plot the graph:
+    ```bash
+    fab plot
+    ```
+The graph related to Figure 1 should be in the `plots` directory with the name `latency.pdf`.
+
+## Running the Codebase (Remotely)
+
+For instructions on running the codebase remotely, please refer to our [wiki]().
+
+## Contributing
+Feel free to fork this repository and submit pull requests if you'd like to improve or extend the functionality. 
