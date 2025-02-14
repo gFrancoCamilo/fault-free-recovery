@@ -106,7 +106,7 @@ The graph related to Figure 1 should be in the `plots` directory with the name `
 
 ## Running the Codebase (Remotely)
 
-For instructions on running the codebase remotely, please refer to our [wiki]().
+For instructions on running the codebase remotely, please refer to our [wiki](https://github.com/gFrancoCamilo/fault-free-recovery/wiki).
 
 ## Contributing
 Feel free to fork this repository and submit pull requests if you'd like to improve or extend the functionality. 
