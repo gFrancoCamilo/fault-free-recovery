@@ -9,7 +9,7 @@ In particular, this repository implements our recovery protocol under a free-fau
 
 Before you start, make sure you have the following installed:
 
-- Python 3.6+
+- Python 3.10
 - Rust and Cargo
 - Clang
 - Tmux
