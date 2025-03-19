@@ -18,7 +18,7 @@ In Ubuntu 22.04, you can install the prerequisites by running:
 
 ```bash
 sudo apt update
-sudo apt-get install -y python3 tmux clang
+sudo apt-get install -y python3 tmux clang python-is-python3 curl python3-pip git
 curl https://sh.rustup.rs -sSf | sh
 ```
 
