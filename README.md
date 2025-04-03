@@ -37,6 +37,8 @@ apt-get install -y python3 tmux clang python-is-python3 curl python3-pip git
 curl https://sh.rustup.rs -sSf | sh
 source $HOME/.cargo/env
 ```
+
+We also recommend using a machine with at least one core per node/client (if running locally), 16 GB of RAM, and at least 30 GB of NVMe SSD.
 ## Running the Codebase (locally)
 
 ### Step 1: Set up the environment
@@ -65,6 +67,7 @@ Open fabfile.py and modify the parameters as needed.
 ### Step 3: Run the Protocol
 Once you've configured fabfile.py, you can run the protocol locally using Fabric. To do so, execute the following command:
 
+:warning: **Executing the code will kill all open tmux sessions.**
 ```bash
 fab localmal
 ```
@@ -85,8 +88,6 @@ We provide the necessary scripts to reproduce Figure 2 of the paper locally.
     chmod +x get-results-fig1.sh
     ```
 3. Execute the script to get results for 7 nodes:
-
-    :warning: **Executing the code will kill all open tmux sessions.**
     ```bash
     ./get-results-fig1.sh 10_000 120_000 7 5
     ```
