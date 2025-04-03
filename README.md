@@ -27,7 +27,16 @@ Make sure that `cargo` is in your `$PATH` after installation:
 ```bash
 source $HOME/.cargo/env
 ```
+In case Ubuntu 22.04 is not available, we recommend using Podman or Docker to set up an Ubuntu 22.04 container. You can check how to install Podman [here](https://podman.io). After installing it, run the following commands individually on the command line:
 
+```bash
+podman pull docker://ubuntu:22.04
+podman run -it ubuntu:22.04 /bin/bash
+apt update
+apt-get install -y python3 tmux clang python-is-python3 curl python3-pip git
+curl https://sh.rustup.rs -sSf | sh
+source $HOME/.cargo/env
+```
 ## Running the Codebase (locally)
 
 ### Step 1: Set up the environment
@@ -76,6 +85,8 @@ We provide the necessary scripts to reproduce Figure 2 of the paper locally.
     chmod +x get-results-fig1.sh
     ```
 3. Execute the script to get results for 7 nodes:
+
+    :warning: **Executing the code will kill all open tmux sessions.**
     ```bash
     ./get-results-fig1.sh 10_000 120_000 7 5
     ```
@@ -95,7 +106,7 @@ We provide the necessary scripts to reproduce Figure 2 of the paper locally.
         "faults": [0, 1],
         "nodes": [7, 30],
         "tx_size": 512,
-        "max_latency": [5_000],
+        "max_latency": [9_000],
     }
     ```
 6. Plot the graph:
